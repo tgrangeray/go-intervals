@@ -12,6 +12,54 @@ go get github.com/tgrangeray/go.intervals
 
 ## Usage
 
+### Utilisation comme bibliothèque
+
+```go
+package main
+
+import (
+    "fmt"
+    "log"
+    
+    intervals "github.com/tgrangeray/go.intervals"
+)
+
+func main() {
+    // Créer un nouveau client
+    client := intervals.NewClient("your_athlete_id", "your_api_key")
+    
+    // Récupérer les informations de l'athlète
+    athlete, err := client.GetAthlete()
+    if err != nil {
+        log.Fatal(err)
+    }
+    
+    fmt.Printf("Athlète: %s\n", athlete.Name)
+    
+    // Récupérer les activités
+    activities, err := client.GetActivities(map[string]string{
+        "limit": "10",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    
+    fmt.Printf("Nombre d'activités: %d\n", len(activities))
+}
+```
+
+### Utilisation comme programme autonome
+
+Pour tester le client directement :
+
+```bash
+cd cmd/intervals
+go run main.go
+```
+
+### Exemple d'utilisation
+
+Consultez le fichier [example/main.go](example/main.go) pour un exemple complet d'utilisation.
 
 ### Id d'athlète et clés d'API
 

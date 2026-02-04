@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+
+	intervals "github.com/tgrangeray/go.intervals"
 )
 
 // LoadConfigFromFile lit le fichier config.json et extrait athlete_id et api_key
@@ -29,13 +31,13 @@ func loadConfigFromFile(filename string) (athleteID string, apiKey string, err e
 
 func main() {
 	// Charger la configuration depuis le fichier JSON
-	athleteID, apiKey, err := loadConfigFromFile("config.json")
+	athleteID, apiKey, err := loadConfigFromFile("../../config.json")
 	if err != nil {
 		log.Fatal("Erreur lors du chargement de la configuration:", err)
 	}
 
 	// Créer un nouveau client avec les valeurs extraites
-	client := NewClient(athleteID, apiKey)
+	client := intervals.NewClient(athleteID, apiKey)
 
 	fmt.Printf("Client créé avec succès:\n")
 	fmt.Printf("AthleteID: %s\n", client.AthleteID)
@@ -48,26 +50,24 @@ func main() {
 		log.Fatal("Erreur lors de la récupération de l'athlète:", err)
 	}
 
-	// Affichage formaté des informations de l'athlète
-	fmt.Printf("\n=== Informations de l'Athlète ===\n")
+	fmt.Printf("\n=== Informations de l'athlète ===\n")
 	fmt.Printf("ID: %s\n", athlete.ID)
 	fmt.Printf("Nom: %s\n", athlete.Name)
 	fmt.Printf("Email: %s\n", athlete.Email)
-	fmt.Printf("Pays: %s\n", athlete.Country)
-	fmt.Printf("Genre: %s\n", athlete.Gender)
 	fmt.Printf("Fuseau horaire: %s\n", athlete.TimeZone)
-	if athlete.Birthday != "" {
-		fmt.Printf("Date de naissance: %s\n", athlete.Birthday)
-	}
-	if athlete.Weight > 0 {
-		fmt.Printf("Poids: %.1f %s\n", athlete.Weight, athlete.WeightUnit)
-	}
+	fmt.Printf("Pays: %s\n", athlete.Country)
+	fmt.Printf("Poids: %.1f %s\n", athlete.Weight, athlete.WeightUnit)
 
-	fmt.Printf("=== Athlete ===\n")
-	athleteJSON, err := json.MarshalIndent(athlete, "", "  ")
+	// Test de récupération des activités (dernières 10)
+	fmt.Printf("\n=== Récupération des activités ===\n")
+	activities, err := client.GetActivities("", "", 10)
 	if err != nil {
-		log.Printf("Erreur lors de la sérialisation JSON: %v", err)
+		log.Printf("Erreur lors de la récupération des activités: %v", err)
 	} else {
-		fmt.Println(string(athleteJSON))
+		fmt.Printf("Nombre d'activités récupérées: %d\n", len(activities))
+		for i, activity := range activities {
+			fmt.Printf("%d. %s (%s) - %s - Distance: %.2f km\n",
+				i+1, activity.Name, activity.Type, activity.StartDateLocal, activity.Distance/1000)
+		}
 	}
 }
