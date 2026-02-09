@@ -1,4 +1,4 @@
-# go.intervals
+# go-intervals
 
 Client Go pour l'API Intervals.icu v1.0.0
 
@@ -7,7 +7,7 @@ Intervals Icu API specifications : https://intervals.icu/api-docs.html
 ## Installation
 
 ```bash
-go get github.com/tgrangeray/go.intervals
+go get github.com/tgrangeray/go-intervals
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ import (
     "fmt"
     "log"
     
-    intervals "github.com/tgrangeray/go.intervals"
+    intervals "github.com/tgrangeray/go-intervals"
 )
 
 func main() {

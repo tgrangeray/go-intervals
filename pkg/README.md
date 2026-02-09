@@ -23,7 +23,7 @@ pkg/
 ### New recommended approach (modular package):
 
 ```go
-import "github.com/tgrangeray/go.intervals/pkg/intervals"
+import "github.com/tgrangeray/go-intervals/pkg/intervals"
 
 client := intervals.NewClient(athleteID, apiKey)
 athlete, err := client.GetAthlete()
@@ -32,7 +32,7 @@ athlete, err := client.GetAthlete()
 ### Backwards compatible approach (legacy):
 
 ```go
-import "github.com/tgrangeray/go.intervals"
+import "github.com/tgrangeray/go-intervals"
 
 client := intervals.NewClient(athleteID, apiKey)
 athlete, err := client.GetAthlete()
@@ -50,4 +50,4 @@ athlete, err := client.GetAthlete()
 
 No changes are required for existing code. The root `intervals.go` file provides full backwards compatibility by re-exporting all types and functions from the new package structure.
 
-For new projects, we recommend using the modular import path: `github.com/tgrangeray/go.intervals/pkg/intervals`
+For new projects, we recommend using the modular import path: `github.com/tgrangeray/go-intervals/pkg/intervals`

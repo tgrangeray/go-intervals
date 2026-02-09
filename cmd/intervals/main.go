@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/tgrangeray/go.intervals/pkg/intervals"
+	"github.com/tgrangeray/go-intervals/pkg/intervals"
 )
 
 // LoadConfigFromFile lit le fichier config.json et extrait athlete_id et api_key

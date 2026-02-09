@@ -1,8 +1,8 @@
 // Package intervals provides a backwards compatibility layer.
-// For new code, use github.com/tgrangeray/go.intervals/pkg/intervals directly.
+// For new code, use github.com/tgrangeray/go-intervals/pkg/intervals directly.
 package intervals
 
-import "github.com/tgrangeray/go.intervals/pkg/intervals"
+import "github.com/tgrangeray/go-intervals/pkg/intervals"
 
 // Client is an alias for the intervals.Client type
 type Client = intervals.Client
